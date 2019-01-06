@@ -48,6 +48,5 @@ define $(PKG)_BUILD
     # compile test
     '$(TARGET)-g++' \
         -W -Wall -Werror \
-        '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-$(PKG).exe' \
-        `'$(TARGET)-pkg-config' $(PKG) --cflags --libs`
+        '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-$(PKG).exe' -larmadillo -lopenblas -lhdf5
 endef
