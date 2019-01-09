@@ -5,11 +5,11 @@ $(PKG)_WEBSITE  := https://www.qt.io/
 $(PKG)_DESCR    := Qt
 $(PKG)_IGNORE   :=
 $(PKG)_VERSION   = $(qtbase_VERSION)
-$(PKG)_CHECKSUM := 2795f78487060b4fde07e436c93fa2d9b62f2420bb54648ad0a6b7783516f252
+$(PKG)_CHECKSUM := 4c1900b9917dc18584b2287cd7382f0668d71237ef8e71e3feb4d457c2b56091
 $(PKG)_SUBDIR    = $(subst qtbase,qtgamepad,$(qtbase_SUBDIR))
 $(PKG)_FILE      = $(subst qtbase,qtgamepad,$(qtbase_FILE))
 $(PKG)_URL       = $(subst qtbase,qtgamepad,$(qtbase_URL))
-$(PKG)_DEPS     := gcc qtbase qtdeclarative
+$(PKG)_DEPS     := cc qtbase qtdeclarative
 
 define $(PKG)_UPDATE
     echo $(qtbase_VERSION)
