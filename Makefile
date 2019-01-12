@@ -126,6 +126,7 @@ MXE_GCC_EXCEPTION_OPTS = \
     $(if $(call seq,dw2,$(GCC_EXCEPTIONS)),--disable-sjlj-exceptions)
 
 
+
 # Append these to the "make" and "make install" steps of autotools packages
 # in order to neither build nor install unwanted binaries, manpages,
 # infopages and API documentation (reduces build time and disk space usage).
@@ -1073,6 +1074,8 @@ docs/packages.json: $(foreach 1,$(PKGS),$(PKG_MAKEFILES))
 	         "description": "$($(PKG)_DESCR)"},';)} >> $@
 	@echo '    "": null'             >> $@
 	@echo '}'                        >> $@
+
+print-%  : ; @echo $* = $($*)
 
 # for other mxe functions
 include mxe.patch.mk

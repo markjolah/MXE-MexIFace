@@ -41,6 +41,7 @@ define $(PKG)_CONFIGURE
         --without-x \
         --disable-win32-registry \
         --enable-threads=$(MXE_GCC_THREADS) \
+        ${MXE_GCC_EXCEPTION_OPTS} \
         --enable-libgomp \
         --with-gmp='$(PREFIX)/$(BUILD)' \
         --with-isl='$(PREFIX)/$(BUILD)' \
