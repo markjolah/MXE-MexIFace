@@ -11,7 +11,7 @@ $(PKG)_FILE     := gcc-$($(PKG)_VERSION).tar.bz2
 $(PKG)_PATCHES  := $(basename $(lastword $(MAKEFILE_LIST))).patch
 $(PKG)_URL      := https://ftp.gnu.org/gnu/gcc/gcc-$($(PKG)_VERSION)/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://www.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-$($(PKG)_VERSION)/$($(PKG)_FILE)
-$(PKG)_DEPS     := binutils mingw-w64
+$(PKG)_DEPS     := binutils mingw-w64 $(addprefix $(BUILD)~,cloog gmp isl mpc mpfr)
 
 $(PKG)_FILE_$(BUILD) :=
 
@@ -41,6 +41,7 @@ define $(PKG)_CONFIGURE
         --without-x \
         --disable-win32-registry \
         --enable-threads=$(MXE_GCC_THREADS) \
+        ${MXE_GCC_EXCEPTION_OPTS} \
         --enable-libgomp \
         --with-gmp='$(PREFIX)/$(BUILD)' \
         --with-isl='$(PREFIX)/$(BUILD)' \
