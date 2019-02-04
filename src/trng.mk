@@ -3,8 +3,8 @@
 
 PKG             := trng
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 4.19
-$(PKG)_CHECKSUM := 36b49961c631ae01d770ff481796c8b280e18c6b6e6b5ca00f2b868533b0492e
+$(PKG)_VERSION  := 4.20
+$(PKG)_CHECKSUM := 8cffd03392a3e498fe9f93ccfa9ff0c9eacf9fd9d33e3655123852d701bbacbc
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := https://numbercrunch.de/trng/$($(PKG)_FILE)
