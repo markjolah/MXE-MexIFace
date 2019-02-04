@@ -1,14 +1,16 @@
 # This file is part of MXE. See LICENSE.md for licensing information.
 
-PKG             := openblas
+PKG             := openblas_int64
 $(PKG)_WEBSITE  := https://www.openblas.net/
 $(PKG)_DESCR    := OpenBLAS
-$(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 0.2.20
-$(PKG)_CHECKSUM := 5ef38b15d9c652985774869efd548b8e3e972e1e99475c673b25537ed7bcf394
-$(PKG)_GH_CONF  := xianyi/OpenBLAS/tags, v
+$(PKG)_IGNORE   = $(openblas_IGNORE)
+$(PKG)_VERSION  = $(openblas_VERSION)
+$(PKG)_CHECKSUM = $(openblas_CHECKSUM)
+$(PKG)_GH_CONF  = $(openblas_GH_CONF)
+$(PKG)_FILE     = $(openblas_FILE)
+$(PKG)_URL      = $(openblas_URL)
 $(PKG)_DEPS     := cc pthreads
-
+$(PKG)_PCNAME   := openblas-int64
 # openblas has it's own optimised versions of netlib lapack that
 # it bundles into -lopenblas so won't conflict with those libs
 # headers do conflict so install to separate directory
@@ -28,6 +30,7 @@ $(PKG)_MAKE_OPTS = \
         NUM_THREADS=$(call LIST_NMAX, 2 $(NPROCS)) \
         TARGET=Nehalem \
         DYNAMIC_ARCH=1 \
+        INTERFACE64=1 \
         ARCH=$(strip \
              $(if $(findstring x86_64,$(TARGET)),x86_64,\
              $(if $(findstring i686,$(TARGET)),x86))) \

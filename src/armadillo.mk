@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 2460dced83e0f7d8340a6fab8065f18635707259edc9bf4cbac325b1b46fa
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://$(SOURCEFORGE_MIRROR)/project/arma/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc hdf5 openblas blas lapack
+$(PKG)_DEPS     := gcc hdf5 openblas blas_reference lapack_reference
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://sourceforge.net/projects/arma/files/' | \
