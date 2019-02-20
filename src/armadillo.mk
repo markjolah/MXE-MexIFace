@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 2460dced83e0f7d8340a6fab8065f18635707259edc9bf4cbac325b1b46fa
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://$(SOURCEFORGE_MIRROR)/project/arma/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc hdf5 openblas blas_reference lapack_reference
+$(PKG)_DEPS     := gcc hdf5
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://sourceforge.net/projects/arma/files/' | \
@@ -41,12 +41,12 @@ define $(PKG)_BUILD
     (echo 'Name: $(PKG)'; \
      echo 'Version: $($(PKG)_VERSION)'; \
      echo 'Description: $($(PKG)_DESCR)'; \
-     echo 'Requires: hdf5 openblas'; \
+     echo 'Requires: hdf5'; \
      echo 'Libs: -larmadillo'; \
     ) > '$(PREFIX)/$(TARGET)/lib/pkgconfig/$(PKG).pc'
 
     # compile test
-    '$(TARGET)-g++' \
-        -W -Wall -Werror \
-        '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-$(PKG).exe' -larmadillo -lopenblas -lhdf5
+#     '$(TARGET)-g++' \
+#         -W -Wall -Werror \
+#         '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-$(PKG).exe' -larmadillo -lopenblas -lhdf5
 endef
