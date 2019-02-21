@@ -1,47 +1,59 @@
-This is a tracking repository that tracks MXE and adds the default settings and packages necessary to compile the MexIFace applications.
+# MXE-MexIFace
+
+MXE-MexIFace is a fork of [MXE](https://github.com/mxe/mxe) providing a mingw-w64 based GNU environment for
+cross-compiling to Windows 64-bit targest.  This fork tracks the `mxe/master` branch, maintaining Matlab environment compatibility specifically for the [MexIFace](https://markjolah.github.io/MexIFace) package.
+
+ Because of the Matlab MEX modules are dynamically loaded as shared libraries, they must be linked against an environment compabilible with the closed-source Matlab and it's internal libraries.  MexIFace targets support of Matlab R2106b+ which is possible using a gcc-4.9.4 toolchain.
+
+  * [MexIFace doumentation](https://markjolah.github.io/MexIFace/) The principal package using this environment.  Provides an object-oriented cross-platform C++/Matlab MEX interface and build environment.
+  * [GCC standards support](https://gcc.gnu.org/projects/cxx-status.html)
+     * `gcc-4.9.4` gives full C++11 and partial C++14 support and can work with matlab R2016b+ (9.1+)
+     * `gcc-6.5.0` gives full C++14 and partial C++17 support and can work with matlab R2018a+ (9.4+)
+ * Original [MXE-README.md](MXE-README.md)
+ * [MXE Project](https://mxe.cc/)
+
+## Matlab MXE Environment
+
+This environment is deigned to provide a library of open-source libraries compatible with Matlab's built-in environment when compiling Matlab MEX files for Matlab's `win64` architecture.
+  * Matlab Win64 uses the following MXE toolchain options
+    * [MXE **sjlj** exception handling](https://github.com/mxe/mxe/pull/1664)
+    * [MXE **posix** threading](https://github.com/mxe/mxe/pull/2263)
+    * [MXE **shared** libraries](https://mxe.cc/#introduction)
+
+Therefore, Matlab MEX files for `win64` arch should use `MXE` target toolchain notation:
+
+    MXE_TARGETS := x86_64-w64-mingw32.shared.posix.sjlj
+
+## Default MexIFace Package List
+The following packages are included by default in [`settings.mk`](settings.mk), which can easily be extended as needed.
+
+ * **pthreads** - Required for matlab MEX
+ * [**boost**](https://www.boost.org/) - Essential C++ component.
+ * [**armadillo**](http://arma.sourceforge.net/docs.html) - C++ array and linear-algebra library with BLAS/LAPACK integeration
+ * [**zlib**](https://www.zlib.net/) - Common dependency
+ * [**googletest**](https://github.com/google/googletest) - Google's unit test framework
+
+### Blas/Lapack 64-bit support
+
+Matlab includes internal BLAS and LAPACK libraries that are compiled with 64-bit integer indexing.  These libraries are incompatible with the more common 32-bit integer indexed BLAS/LAPACK libraries such as the default MXE `src/blas.mk` and `src/lapack.mk`.  To enable combined 32-bit and 64-bit support for BLAS and LAPACK, we provide the following MXE packages which are used in-place of standard `blas` and `lapack`:
+
+ * **blas_lapack_reference** - 32-bit integer BLAS/LAPACK using [NetLib reference sources](http://www.netlib.org/lapack/)
+ * **blas_lapack_reference_int64** - 64-bit integer reference BLAS/LAPACK [NetLib reference sources](http://www.netlib.org/lapack/)
+
+These packages modify the default [`pkg-config` files](https://www.freedesktop.org/wiki/Software/pkg-config/) providing the following `.pc` files at `usr/x86_64-w64-mingw32.shared.posix.sjlj/lib/pkgconfig/`:
+ * `blas-reference.pc` - INT32 NetLib blas
+ * `blas-reference-int64.pc` - INT64 NetLib BLAS
+ * `lapack-reference.pc` - INT32 NetLib Lapack
+ * `lapack-reference-int64.pc` - INT64 NetLib Lapack
+
+### Specialized libraries
+
+ * [**libics**](https://svi-opensource.github.io/libics/) - Scientific imaging library
+ * [**trng**](https://www.numbercrunch.de/trng/) - Parallel random number generator engines
+
+## Branches
+
+ * `master` - Environment for Win64 gcc-4.9.x and later based Matlab systems.  Suitable for R2016b+ (9.1+)
+ * `gcc-6.5` - Environment for Win64 gcc-6.x and later based Matlab systems.  Suitable for R2018a+ (9.4+).
 
 
-## MXE (M cross environment)
-
-[![License][license-badge]][license-page]
-
-[license-page]: LICENSE.md
-[license-badge]: https://img.shields.io/badge/License-MIT-brightgreen.svg
-
-MXE (M cross environment) is a Makefile that compiles a cross
-compiler and cross compiles many free libraries such as SDL and
-Qt. Thus, it provides a nice cross compiling environment for
-various target platforms, which:
-
-  * is designed to run on any Unix system
-  * is easy to adapt and to extend
-  * builds many free libraries in addition to the cross compiler
-  * can also build just a subset of the packages, and automatically builds their dependencies
-  * downloads all needed packages and verifies them by their checksums
-  * is able to update the version numbers of all packages automatically
-  * directly uses source packages, thus ensuring the whole build mechanism is transparent
-  * allows inter-package and intra-package parallel builds whenever possible
-  * integrates well with autotools, cmake, qmake, and hand-written makefiles.
-  * has been in continuous development since 2007 and is used by several projects
-
-## Supported Toolchains
-
-  * Runtime: MinGW-w64
-  * Host Triplets:
-    - `i686-w64-mingw32`
-    - `x86_64-w64-mingw32`
-  * Packages:
-    - static
-    - shared
-  * GCC Threading Libraries (`winpthreads` is always available):
-    - [posix](https://github.com/mxe/mxe/pull/958) [(default)](https://github.com/mxe/mxe/issues/2258)
-    - win32 (supported by limited amount packages)
-  * GCC Exception Handling:
-    - Default
-      - i686: sjlj
-      - x86_64: seh
-    - [Alternatives (experimental)](https://github.com/mxe/mxe/pull/1664)
-      - i686: dw2
-      - x86_64: sjlj
-
-Please see [mxe.cc](https://mxe.cc/) for further information and package support matrix.
