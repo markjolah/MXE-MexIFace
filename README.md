@@ -1,14 +1,14 @@
 # MXE-MexIFace
 
 MXE-MexIFace is a fork of [MXE](https://github.com/mxe/mxe) providing a mingw-w64 based GNU environment for
-cross-compiling to Windows 64-bit targest.  This fork tracks the `mxe/master` branch, maintaining Matlab environment compatibility specifically for the [MexIFace](https://markjolah.github.io/MexIFace) package.
+cross-compiling to Windows 64-bit targets.  This fork tracks the `mxe/master` branch, maintaining Matlab environment compatibility specifically for the [MexIFace](https://markjolah.github.io/MexIFace) package.
 
- Because of the Matlab MEX modules are dynamically loaded as shared libraries, they must be linked against an environment compabilible with the closed-source Matlab and it's internal libraries.  MexIFace targets support of Matlab R2106b+ which is possible using a gcc-4.9.4 toolchain.
+ Because of the Matlab MEX modules are dynamically loaded as shared libraries, they must be linked against an environment compatible with the closed-source Matlab and it's internal libraries.  MexIFace targets support of Matlab R2106b+ which is possible using a `gcc-4.9.4` toolchain.
 
-  * [MexIFace doumentation](https://markjolah.github.io/MexIFace/) The principal package using this environment.  Provides an object-oriented cross-platform C++/Matlab MEX interface and build environment.
+  * [MexIFace documentation](https://markjolah.github.io/MexIFace/) The principal package using this environment.  Provides an object-oriented cross-platform C++/Matlab MEX interface and build environment.
   * [GCC standards support](https://gcc.gnu.org/projects/cxx-status.html)
-     * `gcc-4.9.4` gives full C++11 and partial C++14 support and can work with matlab R2016b+ (9.1+)
-     * `gcc-6.5.0` gives full C++14 and partial C++17 support and can work with matlab R2018a+ (9.4+)
+     * `gcc-4.9.4` gives full C++11 and partial C++14 support and can work with Matlab R2016b+ (9.1+)
+     * `gcc-6.5.0` gives full C++14 and partial C++17 support and can work with Matlab R2018a+ (9.4+)
  * Original [MXE-README.md](MXE-README.md)
  * [MXE Project](https://mxe.cc/)
 
@@ -29,7 +29,7 @@ The following packages are included by default in [`settings.mk`](settings.mk), 
 
  * **pthreads** - Required for matlab MEX
  * [**boost**](https://www.boost.org/) - Essential C++ component.
- * [**armadillo**](http://arma.sourceforge.net/docs.html) - C++ array and linear-algebra library with BLAS/LAPACK integeration
+ * [**armadillo**](http://arma.sourceforge.net/docs.html) - C++ array and linear-algebra library with BLAS/LAPACK integration
  * [**zlib**](https://www.zlib.net/) - Common dependency
  * [**googletest**](https://github.com/google/googletest) - Google's unit test framework
 
