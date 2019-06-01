@@ -16,7 +16,7 @@ $(PKG)_DEPS_$(BUILD) := zlib
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://www.boost.org/users/download/' | \
-    $(SED) -n 's,.*/boost/\([0-9][^"/]*\)/".*,\1,p' | \
+    $(SED) -n 's,.*/release/\([0-9][^"/]*\)/.*,\1,p' | \
     grep -v beta | \
     head -1
 endef
@@ -50,7 +50,6 @@ define $(PKG)_BUILD
         threading=multi \
         variant=release \
         toolset=gcc-mxe \
-        cxxflags=$(if $(findstring posix,$(MXE_GCC_THREADS)),-std=gnu++11,-std=gnu++98) \
         --layout=tagged \
         --disable-icu \
         --without-mpi \

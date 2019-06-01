@@ -3,8 +3,8 @@
 PKG             := libxslt
 $(PKG)_WEBSITE  := http://xmlsoft.org/XSLT/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 1.1.29
-$(PKG)_CHECKSUM := b5976e3857837e7617b29f2249ebb5eeac34e249208d31f1fbf7a6ba7a4090ce
+$(PKG)_VERSION  := 1.1.33
+$(PKG)_CHECKSUM := 8e36605144409df979cab43d835002f63988f3dc94d5d3537c12796db90e38c8
 $(PKG)_SUBDIR   := libxslt-$($(PKG)_VERSION)
 $(PKG)_FILE     := libxslt-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := http://xmlsoft.org/sources/$($(PKG)_FILE)
@@ -12,9 +12,8 @@ $(PKG)_URL_2    := ftp://xmlsoft.org/libxslt/$($(PKG)_FILE)
 $(PKG)_DEPS     := cc libgcrypt libxml2
 
 define $(PKG)_UPDATE
-    $(WGET) -q -O- 'https://git.gnome.org/browse/libxslt/refs/tags' | \
-    grep '<a href=' | \
-    $(SED) -n "s,.*<a href='[^']*/tag/?h=v\\([0-9][^']*\\)'.*,\\1,p" | \
+    $(WGET) -q -O- 'https://gitlab.gnome.org/GNOME/libxslt/tags' | \
+    $(SED) -n "s,.*<a [^>]\+>v\([0-9,\.]\+\)<.*,\\1,p" | \
     head -1
 endef
 
